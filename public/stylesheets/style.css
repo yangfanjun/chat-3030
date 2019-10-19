@@ -13,10 +13,11 @@
 
 .chat .chat-body{
     position: relative;
-    overflow: auto;
+    overflow: hidden;
     outline: none;
     padding: 1.25rem;
     border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: #f6f8fa;
     border-radius: 0.25rem;
     height: 500px;
     width: 100%;
@@ -36,7 +37,13 @@
 .chat .chat-body .messages .message-mine{
     margin-left: auto;
     max-width: 75%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.chat .chat-body .messages .message-others{
+    margin-right: auto;
+    max-width: 75%;
+    margin-bottom: 30px;
 }
 
 .chat .chat-body .messages .message-mine .message-content{
@@ -44,4 +51,25 @@
     border-radius: 5px;
     padding: 10px 20px;
     box-sizing: border-box;
+}
+
+.chat .chat-body .messages .message-others .message-content{
+    background-color: #cdcdcd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.chat .chat-body .messages .message-mine .message-time{
+    border-radius: 5px;
+    padding: 3px 0;
+    text-align: right;
+    font-size: 16px;
+}
+
+.chat .chat-body .messages .message-others .message-time{
+    border-radius: 5px;
+    padding: 3px 0;
+    text-align: left;
+    font-size: 16px;
 }
