@@ -11,14 +11,35 @@
     width: auto;
 }
 
+.chat{
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: #f6f8fa;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+.chat .chat-header{
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    /*padding: 1rem;*/
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    /*background-color: #f6f8fa;*/
+    /*border-radius: 0.25rem;*/
+    height: 98px;
+    width: 100%;
+}
+
 .chat .chat-body{
     position: relative;
     overflow: hidden;
     outline: none;
     padding: 1.25rem;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    background-color: #f6f8fa;
-    border-radius: 0.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    /*background-color: #f6f8fa;*/
+    /*border-radius: 0.25rem;*/
     height: 500px;
     width: 100%;
 }
@@ -72,4 +93,28 @@
     padding: 3px 0;
     text-align: left;
     font-size: 16px;
+}
+
+.information-card{
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    padding: 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: #f6f8fa;
+    border-radius: 0.25rem;
+    height: 500px;
+    width: 100%;
+}
+
+.chat .chat-footer{
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    padding: 1rem;
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    /*background-color: #f6f8fa;*/
+    /*border-radius: 0.25rem;*/
+    height: 200px;
+    width: 100%;
 }
