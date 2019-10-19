@@ -109,7 +109,7 @@
 
 .chat .chat-footer{
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     outline: none;
     padding: 1rem;
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
@@ -118,3 +118,34 @@
     height: 200px;
     width: 100%;
 }
+
+/*.dropdown-item2 .dropdown-item3 .dropdown-item4 {*/
+    /*display: block;*/
+    /*width: 100%;*/
+    /*padding: 0.25rem 1.5rem;*/
+    /*clear: both;*/
+    /*font-weight: 400;*/
+    /*color: #495057;*/
+    /*text-align: inherit;*/
+    /*white-space: nowrap;*/
+    /*background-color: transparent;*/
+    /*border: 0;*/
+/*}*/
+
+.dp-green:hover, .dp-green:focus, .dp-green.active, .dp-green:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #73A839;
+}
+
+.dp-red:hover, .dp-red:focus, .dp-red.active, .dp-red:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #C71C22;
+}
+
+/*.dropdown-item2.disabled, .dropdown-item2:disabled {*/
+    /*color: #868e96;*/
+    /*pointer-events: none;*/
+    /*background-color: transparent;*/
+/*}*/
