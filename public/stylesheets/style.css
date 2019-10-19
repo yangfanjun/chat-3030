@@ -154,8 +154,8 @@
     background-color: #C71C22;
 }
 
-/*.dropdown-item2.disabled, .dropdown-item2:disabled {*/
-    /*color: #868e96;*/
-    /*pointer-events: none;*/
-    /*background-color: transparent;*/
-/*}*/
+.log {
+    margin: 0 auto;
+    color: gray;
+    font-size: 16px;
+}
