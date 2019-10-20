@@ -17,6 +17,7 @@ $(document).ready(function () {
         }
     };
 
+    // 用户加入时显示的内容
     const addParticipantsMessage = (data) => {
         var message = '';
         if (data.numUsers === 1) {
@@ -27,15 +28,15 @@ $(document).ready(function () {
         log(message);
     };
 
+    // 生成html元素
     const log = (message, options) => {
-        // var $el = $("div").addClass('log').text(message);
         var $el = $("<div>").addClass('log').text(message);
-        console.log(message);
-        console.log($el);
         addMessageElement($el, options);
     };
 
+    // 将html元素加至messages类下
     const addMessageElement = (el, options) => {
+        // 捕获html元素
         var $el = $(el);
 
         // Setup default options
@@ -61,6 +62,7 @@ $(document).ready(function () {
         $messages[0].scrollTop = $messages[0].scrollHeight;
     };
 
+    // 第一个执行的函数 first
     setUsername(username);
 
     socket.on('news', function (data) {
@@ -69,6 +71,7 @@ $(document).ready(function () {
     });
 
     // Whenever the server emits 'login', log the login message
+    // login -> addParticipantsMessage -> log -> addMessageElement
     socket.on('login', (data) => {
         connected = true;
         // Display the welcome message
@@ -86,11 +89,11 @@ $(document).ready(function () {
     });
 
     // Whenever the server emits 'user left', log it in the chat body
-    // socket.on('user left', (data) => {
-    //     log(data.username + ' left');
-    //     addParticipantsMessage(data);
-    //     removeChatTyping(data);
-    // });
+    socket.on('user left', (data) => {
+        log(data.username + ' left');
+        addParticipantsMessage(data);
+        // removeChatTyping(data);
+    });
 
 
 });
