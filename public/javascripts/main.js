@@ -2,7 +2,7 @@ $(document).ready(function () {
     var FADE_TIME = 150; // ms
     var username = 'testusername';
     var amazing = '！';
-    $('.topname').append(username+amazing);
+    $('.topname').append(username + amazing);
 
     var $window = $(window);
     var $messages = $('.messages'); // Messages area
@@ -11,6 +11,9 @@ $(document).ready(function () {
     // var socket = io.connect('http://localhost:3030');
     var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
+
+    // 新消息提示框隐藏
+    var newtip = false;
 
     // Sets the client's username
     const setUsername = (username) => {
@@ -45,11 +48,15 @@ $(document).ready(function () {
     const addMessageElement = (el, options) => {
         console.log('addMessageElement');
 
-        // 在添加元素前判断当前是否已在底端
-        var diff = $messages.height()-$chatbody.height();
+        // 在添加元素前判断当前是否已在底端，如果在则diff_bool为真
+        var diff = $messages.height() - $chatbody.height();
         var diff_bool = false;
-        if($chatbody.scrollTop() === diff){
+        if ($chatbody.scrollTop() === diff) {
             diff_bool = true;
+        } else {
+            // 如果新消息出现但不在最底端，则显示"有新消息"
+            newtip = true;
+            shownewtip(newtip);
         }
 
         // 捕获html元素
@@ -76,7 +83,7 @@ $(document).ready(function () {
             $messages.append($el);
         }
         // 新消息发出时滚至底端(前提是原本已在底端)
-        if(diff_bool) {
+        if (diff_bool) {
             $chatbody.scrollTop($messages.height() - $chatbody.height());
         }
     };
@@ -145,11 +152,34 @@ $(document).ready(function () {
         }
     });
 
+    // 判断是否显示有新消息
+    const shownewtip = (newtip) => {
+        if(newtip){
+            $('.newtip').css('display','flex');
+        } else {
+            $('.newtip').css('display','none');
+        }
+    };
+
+    // 点击“有新消息”跳至最底端
+    $('.newtip-content').click(function () {
+        $chatbody.scrollTop($messages.height() - $chatbody.height());
+        $('.newtip').css('display','none');
+    });
+
+    // 用户自由滚动至底端时提示消失
+    $chatbody.scroll(function () {
+        var diff = $messages.height() - $chatbody.height();
+        if($chatbody.scrollTop() === diff){
+            $('.newtip').css('display','none');
+        }
+    });
+
+
     // Focus input when clicking on the message input's border
     $inputMessage.click(() => {
         $inputMessage.focus();
     });
-
 
     // Whenever the server emits 'login', log the login message
     // login -> addParticipantsMessage -> log -> addMessageElement
@@ -188,6 +218,7 @@ $(document).ready(function () {
     setUsername(username);
     // 默认至页面底端
     $chatbody.scrollTop($messages.height() - $chatbody.height());
+    shownewtip();
 
 });
 

@@ -46,7 +46,7 @@
     overflow: hidden;
     outline: none;
     padding: 1.25rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    /*border-bottom: 1px solid rgba(0, 0, 0, 0.125);*/
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     /*background-color: #f6f8fa;*/
     /*border-radius: 0.25rem;*/
@@ -129,7 +129,7 @@
     overflow: visible;
     outline: none;
     padding: 1rem;
-    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
     /*background-color: #f6f8fa;*/
     /*border-radius: 0.25rem;*/
     height: 200px;
@@ -165,4 +165,22 @@
     margin: 0 auto;
     color: gray;
     font-size: 16px;
+}
+.newtip{
+    /*position: absolute;*/
+    /*float: left;*/
+    /*display: flex;*/
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-radius: 0.25rem;
+    width: 50%;
+    margin: 0 auto;
+    /*left: 50%;*/
+    /*right: 50%;*/
+}
+
+.newtip-content{
+    margin: 0 auto;
+    color: gray;
+    font-size: 18px;
 }
