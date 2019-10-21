@@ -5,11 +5,13 @@ $(document).ready(function () {
     $('.topname').append(username);
 
     var $messages = $('.messages'); // Messages area
-    var socket = io.connect('http://localhost:3030');
+    // var socket = io.connect('http://localhost:3030');
+    var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
 
     // Sets the client's username
     const setUsername = (username) => {
+        console.log('setUsername');
         // If the username is valid
         if (username) {
             // Tell the server your username
@@ -19,6 +21,7 @@ $(document).ready(function () {
 
     // 用户加入时显示的内容
     const addParticipantsMessage = (data) => {
+        console.log('addParticipantsMessage');
         var message = '';
         if (data.numUsers === 1) {
             message += "there's 1 participant";
@@ -30,12 +33,14 @@ $(document).ready(function () {
 
     // 生成html元素
     const log = (message, options) => {
+        console.log('log');
         var $el = $("<div>").addClass('log').text(message);
         addMessageElement($el, options);
     };
 
     // 将html元素加至messages类下
     const addMessageElement = (el, options) => {
+        console.log('addMessageElement');
         // 捕获html元素
         var $el = $(el);
 
@@ -62,17 +67,10 @@ $(document).ready(function () {
         $messages[0].scrollTop = $messages[0].scrollHeight;
     };
 
-    // 第一个执行的函数 first
-    setUsername(username);
-
-    socket.on('news', function (data) {
-        console.log(data);
-        socket.emit('my other event', {my: 'data'});
-    });
-
     // Whenever the server emits 'login', log the login message
     // login -> addParticipantsMessage -> log -> addMessageElement
     socket.on('login', (data) => {
+        console.log('login');
         connected = true;
         // Display the welcome message
         var message = "Welcome to Socket.IO Chat – ";
@@ -84,6 +82,7 @@ $(document).ready(function () {
 
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', (data) => {
+        console.log('user joined');
         log(data.username + ' joined');
         addParticipantsMessage(data);
     });
@@ -95,6 +94,13 @@ $(document).ready(function () {
         // removeChatTyping(data);
     });
 
+    // Whenever the server emits 'new message', update the chat body
+    socket.on('new message', (data) => {
+        addChatMessage(data);
+    });
+
+    // 第一个执行的函数 first
+    setUsername(username);
 
 });
 
