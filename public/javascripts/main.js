@@ -135,6 +135,7 @@ $(document).ready(function () {
     };
 
     // Keyboard events
+    // 回车 -> sendMessage -> addChatMessage -> new message(server broadcast) -> addChatMessage(other clients)
     $window.keydown(event => {
         // Auto-focus the current input when a key is typed
         // if (!(event.ctrlKey || event.metaKey || event.altKey)) {
