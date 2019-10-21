@@ -2,11 +2,12 @@ $(document).ready(function () {
     var FADE_TIME = 150; // ms
     var username = 'testusername';
     var amazing = '！';
-    $('.topname').append(username + amazing);
 
     var $window = $(window);
+    var $myModal = $('#myModal');
     var $messages = $('.messages'); // Messages area
     var $chatbody = $(".chat-body");
+    var $loginTextarea = $('#loginTextarea')
     var $inputMessage = $('#exampleTextarea');
     // var socket = io.connect('http://localhost:3030');
     var socket = io.connect('http://47.97.26.62:3030/');
@@ -16,13 +17,18 @@ $(document).ready(function () {
     var newtip = false;
 
     // Sets the client's username
-    const setUsername = (username) => {
+    const setUsername = () => {
+        username = cleanInput($loginTextarea.val().trim());
         console.log('setUsername');
         // If the username is valid
         if (username) {
             // Tell the server your username
             socket.emit('add user', username);
         }
+        // 页面右上角填充
+        $('.topname').append(username + amazing);
+        // 清空用户名输入框
+        $loginTextarea.val('');
     };
 
     // 用户加入时显示的内容
@@ -176,7 +182,6 @@ $(document).ready(function () {
         }
     });
 
-
     // Focus input when clicking on the message input's border
     $inputMessage.click(() => {
         $inputMessage.focus();
@@ -215,11 +220,20 @@ $(document).ready(function () {
         addChatMessage(data);
     });
 
-    // 第一个执行的函数 first
-    setUsername(username);
-    // 默认至页面底端
-    $chatbody.scrollTop($messages.height() - $chatbody.height());
-    shownewtip();
+
+    // 首先让modal自动打开
+    $myModal.modal({
+        keyboard: false,
+        backdrop: 'static',
+        show: true,
+    });
+    $myModal.on('hidden.bs.modal', function (e) {
+        // 第一个执行的函数 first
+        setUsername();
+        // 默认至页面底端
+        $chatbody.scrollTop($messages.height() - $chatbody.height());
+        shownewtip();
+    });
 
 });
 
