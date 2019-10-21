@@ -68,13 +68,15 @@
 .chat .chat-body .messages .message-mine{
     margin-left: auto;
     max-width: 75%;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .chat .chat-body .messages .message-others{
     margin-right: auto;
     max-width: 75%;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .chat .chat-body .messages .message-mine .message-content{
