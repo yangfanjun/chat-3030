@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     var $window = $(window);
     var $messages = $('.messages'); // Messages area
+    var $chatbody = $(".chat-body");
     var $inputMessage = $('#exampleTextarea');
     // var socket = io.connect('http://localhost:3030');
     var socket = io.connect('http://47.97.26.62:3030/');
@@ -66,7 +67,20 @@ $(document).ready(function () {
         } else {
             $messages.append($el);
         }
-        $messages[0].scrollTop = $messages[0].scrollHeight;
+        // 新消息发出时滚至底端
+        var getmessageheight = $messages.height();
+        var getchatbodyheight = $chatbody.height();
+        console.log(diff);
+
+        var getscroll = $(".chat-body").scrollTop();
+        console.log(getheight);
+        console.log(getscroll);
+        // if ((getheight-getscroll)<500 ){
+        //     $(".chat-body").scrollTop($(".messages").height());
+        // }
+        // if( $(".chat-body").scrollTop() !== ){
+        //     $(".chat-body").scrollTop($(".messages").height());
+        // }
     };
 
     // Adds the visual chat message to the message list

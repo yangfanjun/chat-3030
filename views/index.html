@@ -47,42 +47,42 @@
                                 这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！
                             </div>
                         </div>
-                        <!--<div class="message-others">-->
-                            <!--<div class="message-time">这里是他人的id</div>-->
-                            <!--<div class="message-content">-->
-                                <!--这里是别人的讨论内容。-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="message-mine">-->
-                            <!--<div class="message-time">这里是我的id</div>-->
-                            <!--<div class="message-content">-->
-                                <!--你好！这里是我的讨论内容。你好！这里是我的讨论内容。-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="message-mine">-->
-                            <!--<div class="message-time">这里是我的id</div>-->
-                            <!--<div class="message-content">-->
-                                <!--你好！这里是我的讨论内容。你好！这里是我的讨论内容。你好！这里是我的讨论内容。你好！这里是我的讨论内容。-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="message-others">-->
-                            <!--<div class="message-time">这里是他人的id</div>-->
-                            <!--<div class="message-content">-->
-                                <!--这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="message-others">-->
-                            <!--<div class="message-time">这里是他人的id</div>-->
-                            <!--<div class="message-content">-->
-                                <!--这里是别人的讨论内容。-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="message-mine">-->
-                            <!--<div class="message-time">这里是我的id</div>-->
-                            <!--<div class="message-content">-->
-                                <!--你好！这里是我的讨论内容。你好！这里是我的讨论内容。-->
-                            <!--</div>-->
-                        <!--</div>-->
+                        <div class="message-others">
+                            <div class="message-time">这里是他人的id</div>
+                            <div class="message-content">
+                                这里是别人的讨论内容。
+                            </div>
+                        </div>
+                        <div class="message-mine">
+                            <div class="message-time">这里是我的id</div>
+                            <div class="message-content">
+                                你好！这里是我的讨论内容。你好！这里是我的讨论内容。
+                            </div>
+                        </div>
+                        <div class="message-mine">
+                            <div class="message-time">这里是我的id</div>
+                            <div class="message-content">
+                                你好！这里是我的讨论内容。你好！这里是我的讨论内容。你好！这里是我的讨论内容。你好！这里是我的讨论内容。
+                            </div>
+                        </div>
+                        <div class="message-others">
+                            <div class="message-time">这里是他人的id</div>
+                            <div class="message-content">
+                                这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！这里是别人的讨论内容。哈哈哈！
+                            </div>
+                        </div>
+                        <div class="message-others">
+                            <div class="message-time">这里是他人的id</div>
+                            <div class="message-content">
+                                这里是别人的讨论内容。
+                            </div>
+                        </div>
+                        <div class="message-mine">
+                            <div class="message-time">这里是我的id</div>
+                            <div class="message-content">
+                                你好！这里是我的讨论内容。你好！这里是我的讨论内容。
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="chat-footer">
@@ -136,7 +136,7 @@
                     <div class="row">
                         <div class="col-md-auto" style="width: 100%; margin-top: 16px">
                             <div class="form-group">
-                                <textarea class="form-control" id="exampleTextarea" rows="2"></textarea>
+                                <input class="form-control" id="exampleTextarea" />
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,10 @@
 
 <script>
     var $ = document.querySelector.bind(document);
-    var ps = new PerfectScrollbar('#toscroll');
+    var ps = new PerfectScrollbar
+    ('#toscroll', {
+        // wheelPropagation: true,
+    });
 </script>
 <script src="javascripts/jquery-3.4.1.js"></script>
 <!--<script src="javascripts/socket.io.js"></script>-->
