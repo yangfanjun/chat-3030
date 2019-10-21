@@ -56,12 +56,12 @@
 
 .chat .chat-body .messages{
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
+    /*-webkit-box-orient: vertical;*/
+    /*-webkit-box-direction: normal;*/
     flex-direction: column;
-    -webkit-box-align: start;
-    align-items: flex-start;
-    box-sizing: border-box;
+    /*-webkit-box-align: start;*/
+    /*align-items: flex-start;*/
+    /*box-sizing: border-box;*/
 }
 
 
@@ -81,14 +81,19 @@
     background-color: #cdcdcd;
     border-radius: 5px;
     padding: 10px 20px;
-    box-sizing: border-box;
+    width:fit-content;
+    width:-moz-fit-content;
+    margin-left: auto;
+    /*box-sizing: border-box;*/
+    /*display: flex;*/
+    /*width: auto;*/
 }
 
 .chat .chat-body .messages .message-others .message-content{
     background-color: #cdcdcd;
     border-radius: 5px;
     padding: 10px 20px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .chat .chat-body .messages .message-mine .message-time{

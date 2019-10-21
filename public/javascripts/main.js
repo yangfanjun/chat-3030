@@ -1,10 +1,12 @@
 $(document).ready(function () {
     var FADE_TIME = 150; // ms
     var username = 'testusername';
-    username += '！';
-    $('.topname').append(username);
+    var amazing = '！';
+    $('.topname').append(username+amazing);
 
+    var $window = $(window);
     var $messages = $('.messages'); // Messages area
+    var $inputMessage = $('#exampleTextarea');
     // var socket = io.connect('http://localhost:3030');
     var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
@@ -67,6 +69,76 @@ $(document).ready(function () {
         $messages[0].scrollTop = $messages[0].scrollHeight;
     };
 
+    // Adds the visual chat message to the message list
+    // 生成消息html元素
+    const addChatMessage = (data, options) => {
+        console.log('addChatMessage');
+        // Don't fade the message in if there is an 'X was typing'
+        // var $typingMessages = getTypingMessages(data);
+        options = options || {};
+        // if ($typingMessages.length !== 0) {
+        //     options.fade = false;
+        //     $typingMessages.remove();
+        // }
+
+        var $usernameDiv = $("<div>").addClass('message-time').text(data.username);
+        var $messageBodyDiv = $("<div>").addClass('message-content').text(data.message);
+
+        // var typingClass = data.typing ? 'typing' : '';
+        var $messageDiv = $("<div>")
+            .addClass('message-mine')
+            .append($usernameDiv, $messageBodyDiv);
+
+        addMessageElement($messageDiv, options);
+    };
+
+    // Sends a chat message
+    const sendMessage = () => {
+        console.log('sendMessage');
+        var message = $inputMessage.val();
+        // Prevent markup from being injected into the message
+        message = cleanInput(message);
+        // if there is a non-empty message and a socket connection
+        if (message && connected) {
+            $inputMessage.val('');
+            addChatMessage({
+                username: username,
+                message: message
+            });
+            // tell server to execute 'new message' and send along one parameter
+            socket.emit('new message', message);
+        }
+    };
+
+    // Prevents input from having injected markup
+    const cleanInput = (input) => {
+        return $('<div/>').text(input).html();
+    };
+
+    // Keyboard events
+    $window.keydown(event => {
+        // Auto-focus the current input when a key is typed
+        // if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+        //     $currentInput.focus();
+        // }
+        // When the client hits ENTER on their keyboard
+        if (event.which === 13) {
+            if (username) {
+                sendMessage();
+                // socket.emit('stop typing');
+                // typing = false;
+            } else {
+                setUsername();
+            }
+        }
+    });
+
+    // Focus input when clicking on the message input's border
+    $inputMessage.click(() => {
+        $inputMessage.focus();
+    });
+
+
     // Whenever the server emits 'login', log the login message
     // login -> addParticipantsMessage -> log -> addMessageElement
     socket.on('login', (data) => {
@@ -96,6 +168,7 @@ $(document).ready(function () {
 
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', (data) => {
+        console.log('new message');
         addChatMessage(data);
     });
 
