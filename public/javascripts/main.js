@@ -182,6 +182,18 @@ $(document).ready(function () {
         }
     });
 
+    // 监听用户名输入
+    const listeninput = () =>{
+        $loginTextarea.bind("input propertychange",function(event){
+            if($loginTextarea.val()===''){
+                $('#loginsubmit').attr("disabled",true)
+            }else {
+                $('#loginsubmit').attr("disabled",false)
+            }
+        });
+    };
+
+
     // Focus input when clicking on the message input's border
     $inputMessage.click(() => {
         $inputMessage.focus();
@@ -227,6 +239,12 @@ $(document).ready(function () {
         backdrop: 'static',
         show: true,
     });
+
+
+    $myModal.on('shown.bs.modal', function (e) {
+        listeninput();
+    });
+
     $myModal.on('hidden.bs.modal', function (e) {
         // 第一个执行的函数 first
         setUsername();
