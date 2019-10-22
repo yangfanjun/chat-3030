@@ -110,10 +110,17 @@ $(document).ready(function () {
         var $messageBodyDiv = $("<div>").addClass('message-content').text(data.message);
 
         // var typingClass = data.typing ? 'typing' : '';
-        var $messageDiv = $("<div>")
-            .addClass('message-mine')
-            .append($usernameDiv, $messageBodyDiv);
-
+        // 判断是否是自发消息，决定消息靠左侧还是右侧
+        var $messageDiv;
+        if (data.username === username) {
+            $messageDiv = $("<div>")
+                .addClass('message-mine')
+                .append($usernameDiv, $messageBodyDiv);
+        } else {
+            $messageDiv = $("<div>")
+                .addClass('message-others')
+                .append($usernameDiv, $messageBodyDiv);
+        }
         addMessageElement($messageDiv, options);
     };
 
@@ -161,34 +168,34 @@ $(document).ready(function () {
 
     // 判断是否显示有新消息
     const shownewtip = (newtip) => {
-        if(newtip){
-            $('.newtip').css('display','flex');
+        if (newtip) {
+            $('.newtip').css('display', 'flex');
         } else {
-            $('.newtip').css('display','none');
+            $('.newtip').css('display', 'none');
         }
     };
 
     // 点击“有新消息”跳至最底端
     $('.newtip-content').click(function () {
         $chatbody.scrollTop($messages.height() - $chatbody.height());
-        $('.newtip').css('display','none');
+        $('.newtip').css('display', 'none');
     });
 
     // 用户自由滚动至底端时提示消失
     $chatbody.scroll(function () {
         var diff = $messages.height() - $chatbody.height();
-        if($chatbody.scrollTop() === diff){
-            $('.newtip').css('display','none');
+        if ($chatbody.scrollTop() === diff) {
+            $('.newtip').css('display', 'none');
         }
     });
 
     // 监听用户名输入
-    const listeninput = () =>{
-        $loginTextarea.bind("input propertychange",function(event){
-            if($loginTextarea.val()===''){
-                $('#loginsubmit').attr("disabled",true)
-            }else {
-                $('#loginsubmit').attr("disabled",false)
+    const listeninput = () => {
+        $loginTextarea.bind("input propertychange", function (event) {
+            if ($loginTextarea.val() === '') {
+                $('#loginsubmit').attr("disabled", true)
+            } else {
+                $('#loginsubmit').attr("disabled", false)
             }
         });
     };
