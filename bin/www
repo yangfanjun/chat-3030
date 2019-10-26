@@ -90,11 +90,28 @@ function onListening() {
 }
 
 /**
+ * 定义数组删除方法
+ * @param val
+ * @returns {number}
+ */
+function arrayRemoveItem(arr, delVal) {
+  if (arr instanceof Array) {
+    var index = arr.indexOf(delVal);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+  }
+}
+
+
+/**
  * socket.io
  */
 var io = require('socket.io')(server);
 
 var numUsers = 0;
+
+var onlineuserlist =[];
 
 io.on('connection', (socket) => {
   var addedUser = false;
@@ -116,15 +133,18 @@ io.on('connection', (socket) => {
     // we store the username in the socket session for this client
     socket.username = username;
     ++numUsers;
+    onlineuserlist.push(username);
     addedUser = true;
     socket.emit('login', {
       username: socket.username,
       numUsers: numUsers,
+      onlineuserlist: onlineuserlist,
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
       username: socket.username,
-      numUsers: numUsers
+      numUsers: numUsers,
+      onlineuserlist: onlineuserlist,
     });
   });
 
@@ -146,11 +166,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     if (addedUser) {
       --numUsers;
+      arrayRemoveItem(onlineuserlist, socket.username);
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
-        numUsers: numUsers
+        numUsers: numUsers,
       });
     }
   });
 });
+
+

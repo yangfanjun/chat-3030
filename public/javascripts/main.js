@@ -11,7 +11,8 @@ $(document).ready(function () {
     var $inputMessage = $('#exampleTextarea');
     var $userlist = $('#user-list');
     // var socket = io.connect('http://localhost:3030');
-    var socket = io.connect('http://47.97.26.62:3030/');
+    var socket = io.connect('http://localhost:3030/');
+    // var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
 
     // 新消息提示框隐藏
@@ -147,10 +148,18 @@ $(document).ready(function () {
     const addUserlist = (data) => {
         console.log('addUserlist');
         var $userlist_dy0 = $("<div>").addClass('py-0 px-2 d-flex list-group-item list-group-item-action align-items-center single-usercard');
-        var $roundedcircle = $("<img src='/images/User.png' alt=\"UserAdmin\" aria-hidden=\"true\" style=\"height: 38px; margin-bottom: 0.5rem/>").addClass('rounded-circle align-self-start mt-2');
+        $userlist_dy0.attr({
+            'username':data
+        });
+        var $roundedcircle = $("<img src='/images/User.png' />").addClass('rounded-circle align-self-start mt-2');
+        $roundedcircle.attr({
+            'alt':"UserAdmin",
+            'aria-hidden':"true",
+            'style':"height: 38px; margin-bottom: 0.5rem",
+        });
         var $span = $("<span>").addClass('contact-status-online');
         var $w100 = $("<div>").addClass('w-100 text-truncate ml-2 my-2');
-        var $usernamediv = $("<div>").addClass('text-truncate').text(data.username);
+        var $usernamediv = $("<div>").addClass('text-truncate').text(data);
         var $combine = $w100.append($usernamediv);
         var $all = $userlist_dy0.append($roundedcircle, $span, $combine);
         addUserlistElement($all);
@@ -163,8 +172,6 @@ $(document).ready(function () {
             $userlist.append($el);
         }
     };
-
-
 
     // Prevents input from having injected markup
     const cleanInput = (input) => {
@@ -242,20 +249,28 @@ $(document).ready(function () {
             prepend: true
         });
         addParticipantsMessage(data);
-        addUserlist(data);
+        // 进入聊天室显示已经在线的所有用户
+        var i;
+        for( i in data.onlineuserlist){
+            addUserlist(data.onlineuserlist[i]);
+        }
     });
 
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', (data) => {
+        var namelistexcept_me = [];
         console.log('user joined');
         log(data.username + ' 加入了讨论组');
         addParticipantsMessage(data);
+        addUserlist(data.username);
     });
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', (data) => {
+        var username_str = data.username
         log(data.username + ' left');
         addParticipantsMessage(data);
+        $("div[username = "+username_str+"]").remove();
         // removeChatTyping(data);
     });
 
