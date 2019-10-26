@@ -9,6 +9,7 @@ $(document).ready(function () {
     var $chatbody = $(".chat-body");
     var $loginTextarea = $('#loginTextarea')
     var $inputMessage = $('#exampleTextarea');
+    var $userlist = $('#user-list');
     // var socket = io.connect('http://localhost:3030');
     var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
@@ -43,7 +44,7 @@ $(document).ready(function () {
         log(message);
     };
 
-    // 生成html元素
+    // 生成系统消息html元素
     const log = (message, options) => {
         console.log('log');
         var $el = $("<div>").addClass('log').text(message);
@@ -95,7 +96,7 @@ $(document).ready(function () {
     };
 
     // Adds the visual chat message to the message list
-    // 生成消息html元素
+    // 生成用户消息html元素
     const addChatMessage = (data, options) => {
         console.log('addChatMessage');
         // Don't fade the message in if there is an 'X was typing'
@@ -141,6 +142,29 @@ $(document).ready(function () {
             socket.emit('new message', message);
         }
     };
+
+    // 生成在线用户列表html元素
+    const addUserlist = (data) => {
+        console.log('addUserlist');
+        var $userlist_dy0 = $("<div>").addClass('py-0 px-2 d-flex list-group-item list-group-item-action align-items-center single-usercard');
+        var $roundedcircle = $("<img src='/images/User.png' alt=\"UserAdmin\" aria-hidden=\"true\" style=\"height: 38px; margin-bottom: 0.5rem/>").addClass('rounded-circle align-self-start mt-2');
+        var $span = $("<span>").addClass('contact-status-online');
+        var $w100 = $("<div>").addClass('w-100 text-truncate ml-2 my-2');
+        var $usernamediv = $("<div>").addClass('text-truncate').text(data.username);
+        var $combine = $w100.append($usernamediv);
+        var $all = $userlist_dy0.append($roundedcircle, $span, $combine);
+        addUserlistElement($all);
+    };
+
+    // 添加在线用户列表html元素
+    const addUserlistElement = (el) =>{
+        var $el = $(el);
+        if($el){
+            $userlist.append($el);
+        }
+    };
+
+
 
     // Prevents input from having injected markup
     const cleanInput = (input) => {
@@ -210,6 +234,7 @@ $(document).ready(function () {
     // login -> addParticipantsMessage -> log -> addMessageElement
     socket.on('login', (data) => {
         console.log('login');
+        console.log(data);
         connected = true;
         // Display the welcome message
         var message = "Welcome to Socket.IO Chat – ";
@@ -217,12 +242,13 @@ $(document).ready(function () {
             prepend: true
         });
         addParticipantsMessage(data);
+        addUserlist(data);
     });
 
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', (data) => {
         console.log('user joined');
-        log(data.username + ' joined');
+        log(data.username + ' 加入了讨论组');
         addParticipantsMessage(data);
     });
 
