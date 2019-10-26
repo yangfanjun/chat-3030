@@ -190,3 +190,25 @@
 .fade.in {
     opacity: 1;
 }
+
+.text-truncate{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.single-usercard{
+    display: flex;
+    margin-top: 5px;
+}
+
+.contact-status-online{
+    border: 1px solid #fff;
+    background-color: #5cb85c;
+    position: absolute;
+    left: 39px;
+    top: 39px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
