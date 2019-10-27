@@ -10,8 +10,7 @@ $(document).ready(function () {
     var $loginTextarea = $('#loginTextarea')
     var $inputMessage = $('#exampleTextarea');
     var $userlist = $('#user-list');
-    // var socket = io.connect('http://localhost:3030');
-    var socket = io.connect('http://localhost:3030/');
+    var socket = io.connect('http://localhost:3030');
     // var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
 
@@ -258,11 +257,13 @@ $(document).ready(function () {
 
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', (data) => {
-        var namelistexcept_me = [];
+        // 只有自己输入用户名后才能侦听其他用户的加入
+        if( username !== 'testusername'){
         console.log('user joined');
         log(data.username + ' 加入了讨论组');
         addParticipantsMessage(data);
         addUserlist(data.username);
+        }
     });
 
     // Whenever the server emits 'user left', log it in the chat body
