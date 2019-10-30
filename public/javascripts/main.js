@@ -10,6 +10,7 @@ $(document).ready(function () {
     var $loginTextarea = $('#loginTextarea')
     var $inputMessage = $('#exampleTextarea');
     var $userlist = $('#user-list');
+    var $onlinenumber = $('#online-number');
     var socket = io.connect('http://localhost:3030');
     // var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
@@ -37,9 +38,9 @@ $(document).ready(function () {
         console.log('addParticipantsMessage');
         var message = '';
         if (data.numUsers === 1) {
-            message += "there's 1 participant";
+            message += "当前有 1 位用户在线";
         } else {
-            message += "there are " + data.numUsers + " participants";
+            message += "当前有 " + data.numUsers + " 位用户在线";
         }
         log(message);
     };
@@ -58,7 +59,7 @@ $(document).ready(function () {
         // 在添加元素前判断当前是否已在底端，如果在则diff_bool为真
         var diff = $messages.height() - $chatbody.height();
         var diff_bool = false;
-        if ($chatbody.scrollTop() === diff) {
+        if ($chatbody.scrollTop() >= diff) {
             diff_bool = true;
         } else {
             // 如果新消息出现但不在最底端，则显示"有新消息"
@@ -148,13 +149,13 @@ $(document).ready(function () {
         console.log('addUserlist');
         var $userlist_dy0 = $("<div>").addClass('py-0 px-2 d-flex list-group-item list-group-item-action align-items-center single-usercard');
         $userlist_dy0.attr({
-            'username':data
+            'username': data
         });
         var $roundedcircle = $("<img src='/images/User.png' />").addClass('rounded-circle align-self-start mt-2');
         $roundedcircle.attr({
-            'alt':"UserAdmin",
-            'aria-hidden':"true",
-            'style':"height: 38px; margin-bottom: 0.5rem",
+            'alt': "UserAdmin",
+            'aria-hidden': "true",
+            'style': "height: 38px; margin-bottom: 0.5rem",
         });
         var $span = $("<span>").addClass('contact-status-online');
         var $w100 = $("<div>").addClass('w-100 text-truncate ml-2 my-2');
@@ -165,9 +166,9 @@ $(document).ready(function () {
     };
 
     // 添加在线用户列表html元素
-    const addUserlistElement = (el) =>{
+    const addUserlistElement = (el) => {
         var $el = $(el);
-        if($el){
+        if ($el) {
             $userlist.append($el);
         }
     };
@@ -243,36 +244,52 @@ $(document).ready(function () {
         console.log(data);
         connected = true;
         // Display the welcome message
-        var message = "Welcome to Socket.IO Chat – ";
+        var message = "欢迎来到讨论区 – ";
         log(message, {
             prepend: true
         });
         addParticipantsMessage(data);
         // 进入聊天室显示已经在线的所有用户
         var i;
-        for( i in data.onlineuserlist){
+        for (i in data.onlineuserlist) {
             addUserlist(data.onlineuserlist[i]);
         }
+        // 显示在线人数
+        var pre_str = "当前在线人数：";
+        var num = data.numUsers;
+        var str_all = pre_str + num;
+        $onlinenumber.text(str_all);
     });
 
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', (data) => {
         // 只有自己输入用户名后才能侦听其他用户的加入
-        if( username !== 'testusername'){
-        console.log('user joined');
-        log(data.username + ' 加入了讨论组');
-        addParticipantsMessage(data);
-        addUserlist(data.username);
+        if (username !== 'testusername') {
+            console.log('user joined');
+            log(data.username + ' 加入讨论组');
+            addParticipantsMessage(data);
+            addUserlist(data.username);
+
+            // 显示在线人数
+            var pre_str = "当前在线人数：";
+            var num = data.numUsers;
+            var str_all = pre_str + num;
+            $onlinenumber.text(str_all);
         }
     });
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', (data) => {
         var username_str = data.username
-        log(data.username + ' left');
+        log(data.username + ' 离开讨论组');
         addParticipantsMessage(data);
-        $("div[username = "+username_str+"]").remove();
+        $("div[username = " + username_str + "]").remove();
         // removeChatTyping(data);
+        // 显示在线人数
+        var pre_str = "当前在线人数：";
+        var num = data.numUsers;
+        var str_all = pre_str + num;
+        $onlinenumber.text(str_all);
     });
 
     // Whenever the server emits 'new message', update the chat body
