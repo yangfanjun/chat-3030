@@ -293,9 +293,12 @@ $(document).ready(function () {
     });
 
     // Whenever the server emits 'new message', update the chat body
+    // 只有输入用户名之后才监听消息接收
     socket.on('new message', (data) => {
-        console.log('new message');
-        addChatMessage(data);
+        if (username !== 'testusername') {
+            console.log('new message');
+            addChatMessage(data);
+        }
     });
 
 
