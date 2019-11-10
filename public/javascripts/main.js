@@ -11,6 +11,7 @@ $(document).ready(function () {
     var $inputMessage = $('#exampleTextarea');
     var $userlist = $('#user-list');
     var $onlinenumber = $('#online-number');
+    var $whiteback = $('#whiteback')
     // var socket = io.connect('http://localhost:3030');
     var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
@@ -319,6 +320,7 @@ $(document).ready(function () {
         setUsername();
         // 默认至页面底端
         $chatbody.scrollTop($messages.height() - $chatbody.height());
+        $whiteback.fadeOut(150);
         shownewtip();
     });
 
