@@ -162,6 +162,11 @@ io.on('connection', (socket) => {
     });
   });
 
+  // 断线重连
+  socket.on('reconnect', ()=> {
+    console.log("reconnect");
+  });
+
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     if (addedUser) {

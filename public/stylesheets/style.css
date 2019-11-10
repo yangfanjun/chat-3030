@@ -240,3 +240,15 @@
     width: 100%;
     height: 500px;
 }
+
+.interact-disagree{
+    color: #670f12;
+    background-color: #f4d2d3;
+    border-color: #efbfc1;
+}
+
+.interact-agree{
+    color: #3c571e;
+    background-color: #e3eed7;
+    border-color: #d8e7c8;
+}

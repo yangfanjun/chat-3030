@@ -11,8 +11,8 @@ $(document).ready(function () {
     var $inputMessage = $('#exampleTextarea');
     var $userlist = $('#user-list');
     var $onlinenumber = $('#online-number');
-    var socket = io.connect('http://localhost:3030');
-    // var socket = io.connect('http://47.97.26.62:3030/');
+    // var socket = io.connect('http://localhost:3030');
+    var socket = io.connect('http://47.97.26.62:3030/');
     var connected = false;
 
     // 新消息提示框隐藏
