@@ -247,8 +247,16 @@
     border-color: #efbfc1;
 }
 
+.interact-disagree:hover{
+    background-color: #efbfc1;
+}
+
 .interact-agree{
     color: #3c571e;
     background-color: #e3eed7;
     border-color: #d8e7c8;
+}
+
+.interact-agree:hover{
+    background-color: #cbdfb6;
 }
