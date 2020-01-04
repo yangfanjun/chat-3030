@@ -15,7 +15,7 @@ $(document).ready(function () {
     // var socket = io.connect('http://localhost:3030');
     // socket.io架在当前网址+端口
     var currenturl = location.href;
-    var socket = io.connect(currenturl);
+    var socket = io();
     var connected = false;
 
     // 新消息提示框隐藏
