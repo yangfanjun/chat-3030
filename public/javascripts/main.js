@@ -281,7 +281,7 @@ $(document).ready(function () {
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', (data) => {
-        var username_str = data.username
+        var username_str = data.username;
         log(data.username + ' 离开讨论组');
         addParticipantsMessage(data);
         $("div[username = " + username_str + "]").remove();
